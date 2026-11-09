@@ -14,6 +14,9 @@ app.get("/", (req, res) => {
   res.send("ISAB API is running");
 });
 
+const userRouter = require("./routes/auth");
+app.use("/user", userRouter);
+
 app.listen(port, () => {
   console.log("ISAB API is running");
 });

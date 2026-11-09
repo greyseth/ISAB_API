@@ -8,10 +8,13 @@ function encryptPassword(password, callback) {
   });
 }
 
-function comparePassword(plainPass, hashword, callback) {
-  bcrypt.comparePassword(plainPass, hashword, (err, isPasswordMatch) => {
-    return err == null ? callback(null, isPasswordMatch) : callback(err);
-  });
+async function comparePassword(plainPass, hashword, callback) {
+  try {
+    const isPasswordMatch = await bcrypt.compare(plainPass, hashword);
+    callback(null, isPasswordMatch);
+  } catch (err) {
+    callback(err);
+  }
 }
 
 module.exports = { encryptPassword, comparePassword };
